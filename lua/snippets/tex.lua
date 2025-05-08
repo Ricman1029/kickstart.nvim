@@ -654,12 +654,14 @@ return {
         % Para automatas
         \usetikzlibrary{{automata, positioning, arrows, calc}}
         \tikzset{{
+          automata/.style={{
                 ->,  % makes the edges directed
                 >=stealth, % makes the arrow heads bold
                 shorten >=2pt, shorten <=2pt, % shorten the arrow
                 node distance=3cm, % specifies the minimum distance between two nodes. Change if n
                 every state/.style={{draw=blue!55,very thick,fill=blue!20}}, % sets the properties for each ’state’ n
                 initial text=$ $, % sets the text that appears on the start arrow
+          }}
         }}
 
         % Encabezados
