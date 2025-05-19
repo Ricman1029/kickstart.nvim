@@ -1,4 +1,13 @@
 -- Estos son los snippets que se van a cargar para todos los documentos de latex
+local ls = require 'luasnip'
+local s = ls.snippet
+local i = ls.insert_node
+local t = ls.text_node
+local c = ls.choice_node
+local d = ls.dynamic_node
+local sn = ls.snippet_node
+local rep = require('luasnip.extras').rep
+local fmt = require('luasnip.extras.fmt').fmt
 
 vim.keymap.set({ 'i', 's' }, '<C-l>', function()
   if require('luasnip').choice_active() then
@@ -39,6 +48,21 @@ return {
   -- NOTE: AUTOSNIPPETS
 
   -- NOTE: ENVIRONMENTS
+
+  s(
+    { trig = ';beq', snippetType = 'autosnippet', wordTrig = false },
+    fmt(
+      [[
+        \begin{{equation}}{{eq:{}}}
+          \item {}
+        \end{{equation}}
+      ]],
+      {
+        i(1),
+        i(2),
+      }
+    )
+  ),
 
   s(
     { trig = ';ben', snippetType = 'autosnippet', wordTrig = false },
@@ -268,17 +292,17 @@ return {
     })
   ),
 
-  s({ trig = ';sin', snippetType = 'autosnippet', wordTrig = false }, fmt('\\sin^{{{}}}', { i(1) })),
+  s({ trig = ';sin', snippetType = 'autosnippet', wordTrig = false }, fmt('\\sin^{{{}}}({})', { i(1), i(2) })),
 
-  s({ trig = ';cos', snippetType = 'autosnippet', wordTrig = false }, fmt('\\cos^{{{}}}', { i(1) })),
+  s({ trig = ';cos', snippetType = 'autosnippet', wordTrig = false }, fmt('\\cos^{{{}}}({})', { i(1), i(2) })),
 
-  s({ trig = ';tg', snippetType = 'autosnippet', wordTrig = false }, fmt('\\tg^{{{}}}', { i(1) })),
+  s({ trig = ';tg', snippetType = 'autosnippet', wordTrig = false }, fmt('\\tg^{{{}}}({})', { i(1), i(2) })),
 
-  s({ trig = ':sin', snippetType = 'autosnippet', wordTrig = false }, fmt('\\csc^{{{}}}', { i(1) })),
+  s({ trig = ':sin', snippetType = 'autosnippet', wordTrig = false }, fmt('\\csc^{{{}}}({})', { i(1), i(2) })),
 
-  s({ trig = ':cos', snippetType = 'autosnippet', wordTrig = false }, fmt('\\sec^{{{}}}', { i(1) })),
+  s({ trig = ':cos', snippetType = 'autosnippet', wordTrig = false }, fmt('\\sec^{{{}}}({})', { i(1), i(2) })),
 
-  s({ trig = ':tg', snippetType = 'autosnippet', wordTrig = false }, fmt('\\cot^{{{}}}', { i(1) })),
+  s({ trig = ':tg', snippetType = 'autosnippet', wordTrig = false }, fmt('\\cot^{{{}}}({})', { i(1), i(2) })),
 
   s({ trig = ';fra', snippetType = 'autosnippet', wordTrig = false }, fmt('\\frac{{{}}}{{{}}}', { i(1), i(2) })),
 
@@ -321,7 +345,7 @@ return {
 
   s(
     { trig = ';lim', snippetType = 'autosnippet' },
-    fmt('\\lim_{{{} \\to {}}}{{{}}}', {
+    fmt('\\lim_{{{} \\to {}}}{}', {
       i(1, 'x'),
       c(2, { fmt('{}', { i(1) }), t '\\infty', t '-\\infty' }),
       i(3, ''),
@@ -330,7 +354,7 @@ return {
 
   s(
     { trig = ';ilim', snippetType = 'autosnippet' },
-    fmt('\\displaystyle \\lim_{{{} \\to {}}}{{{}}}', {
+    fmt('\\displaystyle \\lim_{{{} \\to {}}}{}', {
       i(1, 'x'),
       c(2, { fmt('{}', { i(1) }), t '\\infty', t '-\\infty' }),
       i(3, ''),
@@ -501,6 +525,8 @@ return {
   s({ trig = ';fi', snippetType = 'autosnippet', wordTrig = false }, { t '\\varphi' }),
   s({ trig = ';psi', snippetType = 'autosnippet', wordTrig = false }, { t '\\psi' }),
   s({ trig = ';omega', snippetType = 'autosnippet', wordTrig = false }, { t '\\omega' }),
+  s({ trig = ';vardel', snippetType = 'autosnippet', wordTrig = false }, { t '\\partial' }),
+  s({ trig = ';nab', snippetType = 'autosnippet', wordTrig = false }, { t '\\nabla' }),
 
   s({ trig = ':gama', snippetType = 'autosnippet', wordTrig = false }, { t '\\Gamma' }),
   s({ trig = ':delta', snippetType = 'autosnippet', wordTrig = false }, { t '\\Delta' }),
@@ -518,11 +544,13 @@ return {
 
   s({ trig = ';geq', snippetType = 'autosnippet', wordTrig = false }, t '\\geq '),
 
-  s({ trig = ';aprox', snippetType = 'autosnippet', wordTrig = false }, t '\\approx '),
+  s({ trig = ';app', snippetType = 'autosnippet', wordTrig = false }, t '\\approx '),
 
   s({ trig = ';inft', snippetType = 'autosnippet', wordTrig = false }, { t '\\infty' }),
 
   s({ trig = ';dot', snippetType = 'autosnippet', wordTrig = false }, { t '\\dots ' }),
+
+  s({ trig = ';*', snippetType = 'autosnippet', wordTrig = false }, { t '\\cdot ' }),
 
   s({ trig = ';por', snippetType = 'autosnippet', wordTrig = false }, { t '\\times ' }),
 
@@ -570,11 +598,16 @@ return {
 
   s({ trig = ';pa', snippetType = 'autosnippet', wordTrig = false }, fmt('\\left({}\\right)', { i(1) })),
 
+  s({ trig = ';an', snippetType = 'autosnippet', wordTrig = false }, fmt('\\left\\langle {} \\right\\rangle', { i(1) })),
   s({ trig = ';ll', snippetType = 'autosnippet', wordTrig = false }, { t '\\left\\{', i(1), t '\\right\\}' }),
 
   s({ trig = ';ere', snippetType = 'autosnippet', wordTrig = false }, fmt('\\mathbb{{R}}^{{{}}}', { i(1) })),
 
-  s({ trig = ';vec', snippetType = 'autosnippet', wordTrig = false }, fmt('\\vec{{{}}}', { i(1) })),
+  s({ trig = ';vv', snippetType = 'autosnippet', wordTrig = false }, fmt('\\vv{{{}}}', { i(1) })),
+
+  s({ trig = ';vs', snippetType = 'autosnippet', wordTrig = false }, fmt('\\hat{{{}}}', { i(1) })),
+
+  s({ trig = ';mbf', snippetType = 'autosnippet', wordTrig = false }, fmt('\\mathbf{{{}}}', { i(1) })),
 
   s({ trig = ';tbf', snippetType = 'autosnippet', wordTrig = false }, fmt('\\textbf{{{}}}', { i(1) })),
 
@@ -591,7 +624,6 @@ return {
   s({ trig = ';oll', snippetType = 'autosnippet', wordTrig = false }, fmt('\\overbrace{{{}}}^{{{}}}', { i(1), i(2) })),
 
   s({ trig = ';ull', snippetType = 'autosnippet', wordTrig = false }, fmt('\\underbrace{{{}}}_{{{}}}', { i(1), i(2) })),
-
   s({ trig = ';ref', snippetType = 'autosnippet', wordTrig = false }, fmt('\\ref{{{}}}', { i(1) })),
 
   s({ trig = ';aql', snippetType = 'autosnippet', wordTrig = false }, { t ' &= ' }),
@@ -602,9 +634,10 @@ return {
     { trig = ';tbox', snippetType = 'autosnippet', wordTrig = false },
     fmt(
       [[
+      \vspace{{0.2cm}}
       \fbox{{\parbox{{{}\linewidth}}{{
       \textbf{{{}}}
-      
+
       {}
       }}}}\vspace{{0.2cm}}
       ]],
@@ -616,7 +649,7 @@ return {
     )
   ),
 
-  s({ trig = ';ebox', snippetType = 'autosnippet', wordTrig = false }, fmt([[ \centerline{{\boxed{{{}}}}} ]], { i(1) })),
+  s({ trig = ';box', snippetType = 'autosnippet', wordTrig = false }, fmt([[\boxed{{{}}} ]], { i(1) })),
 
   -- NOTE: NORMAL SNIPPETS
   s(
@@ -627,21 +660,21 @@ return {
         \usepackage[spanish]{{babel}}
         \usepackage[utf8]{{inputenc}}
         \usepackage{{csquotes}}
-        
+
         % Interlineado 1.5
         \usepackage{{setspace}}
         \onehalfspacing
 
         % Fuente Times New Roman
         \usepackage{{mathptmx}}
-        
+
         % Acomodar margenes del documento
         \usepackage[a4paper, margin=2cm, top=3cm, headheight=50pt]{{geometry}}
 
         % Paquetes comunes
         \usepackage{{graphicx, float}}
         \usepackage{{amsfonts, amssymb, amsmath}}
-        \usepackage{{physics}}
+        \usepackage{{physics, esvect}}
         \usepackage{{enumerate}}
         \usepackage[colorlinks=true, citecolor=blue]{{hyperref}}
 
@@ -725,12 +758,12 @@ return {
 
             \vfill
             \begin{{flushright}}
-              Alumno: Ricardo Nicolás Freccero  
+              Alumno: Ricardo Nicolás Freccero
 
               Número de legajo: 415753
             \end{{flushright}}
           \end{{titlepage}}
-          
+
           \restoregeometry
           \tableofcontents
           \newpage
@@ -746,9 +779,10 @@ return {
 
           \section{{Conclusión}}
 
+          %\newpage
           %\addcontentsline{{toc}}{{section}}{{Referencias}}
           %\printbibliography
-          
+
         \end{{document}}
       ]],
       {
