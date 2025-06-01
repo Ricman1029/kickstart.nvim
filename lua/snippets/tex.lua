@@ -53,8 +53,8 @@ return {
     { trig = ';beq', snippetType = 'autosnippet', wordTrig = false },
     fmt(
       [[
-        \begin{{equation}}{{eq:{}}}
-          \item {}
+        \begin{{equation}}\label{{eq:{}}}
+          {}
         \end{{equation}}
       ]],
       {
@@ -313,7 +313,7 @@ return {
     fmt(
       [[
       \[
-      {}
+        {}
       \]
       ]],
       { i(1) }
@@ -369,8 +369,7 @@ return {
 
   s({ trig = ';sss', snippetType = 'autosnippet', wordTrig = false }, fmt('\\subsubsection{{{}}}', { i(1) })),
 
-  s({ trig = ';spar', snippetType = 'autosnippet', wordTrig = false }, fmt('\\paragraph{{{}}}\\mbox{{}}', { i(1) })),
-
+  s({ trig = ';spar', snippetType = 'autosnippet', wordTrig = false }, fmt('\\paragraph{{{}}}\\mbox{{}}\\\\', { i(1) })),
   s({ trig = ':sec', snippetType = 'autosnippet', wordTrig = false }, fmt('\\section*{{{}}}', { i(1) })),
 
   s({ trig = ':ssc', snippetType = 'autosnippet', wordTrig = false }, fmt('\\subsection*{{{}}}', { i(1) })),
@@ -552,6 +551,8 @@ return {
 
   s({ trig = ';*', snippetType = 'autosnippet', wordTrig = false }, { t '\\cdot ' }),
 
+  s({ trig = '"', snippetType = 'autosnippet', wordTrig = false }, fmt([[``{}'']], { i(1) })),
+
   s({ trig = ';por', snippetType = 'autosnippet', wordTrig = false }, { t '\\times ' }),
 
   s({ trig = ';circ', snippetType = 'autosnippet', wordTrig = false }, { t '\\circledcirc ' }),
@@ -611,6 +612,8 @@ return {
 
   s({ trig = ';tbf', snippetType = 'autosnippet', wordTrig = false }, fmt('\\textbf{{{}}}', { i(1) })),
 
+  s({ trig = ';cod', snippetType = 'autosnippet', wordTrig = false }, fmt('\\verb|{}|', { i(1) })),
+
   s({ trig = ';tit', snippetType = 'autosnippet', wordTrig = false }, fmt('\\textit{{{}}}', { i(1) })),
 
   s({ trig = ';seg', snippetType = 'autosnippet', wordTrig = false }, fmt('\\overline{{{}}}', { i(1) })),
@@ -624,6 +627,8 @@ return {
   s({ trig = ';oll', snippetType = 'autosnippet', wordTrig = false }, fmt('\\overbrace{{{}}}^{{{}}}', { i(1), i(2) })),
 
   s({ trig = ';ull', snippetType = 'autosnippet', wordTrig = false }, fmt('\\underbrace{{{}}}_{{{}}}', { i(1), i(2) })),
+  s({ trig = ';cita', snippetType = 'autosnippet', wordTrig = false }, fmt('\\parencite{{{}}}', { i(1) })),
+
   s({ trig = ';ref', snippetType = 'autosnippet', wordTrig = false }, fmt('\\ref{{{}}}', { i(1) })),
 
   s({ trig = ';aql', snippetType = 'autosnippet', wordTrig = false }, { t ' &= ' }),
@@ -808,7 +813,6 @@ return {
         \begin{{{}}}{}
           {}
         \end{{{}}}
-        {}
       ]],
       {
         i(1, 'environment'),
@@ -818,7 +822,6 @@ return {
         }),
         i(3),
         rep(1),
-        i(0),
       }
     )
   ),
@@ -832,7 +835,6 @@ return {
           \caption{{{}}}
           \label{{fig:{}}}
         \end{{figure}}
-        {}
       ]],
       {
         c(1, {
@@ -843,7 +845,6 @@ return {
         i(3),
         i(4),
         i(5),
-        i(0),
       }
     )
   ),
