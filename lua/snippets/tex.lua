@@ -139,7 +139,7 @@ return {
   ),
 
   s(
-    { trig = ';algd', snippetType = 'autosnippet', wordTrig = false },
+    { trig = ';bald', snippetType = 'autosnippet', wordTrig = false },
     fmt(
       [[
       \begin{{aligned}}
@@ -153,35 +153,12 @@ return {
   ),
 
   s(
-    { trig = ';mat(%d+p%d+)', regTrig = true, name = 'matriz' },
+    { trig = ';mat', snippetType = 'autosnippet', wordTrig = false },
     fmt(
       [[
-      \begin{{{}}}
-      {}
-      \end{{{}}}
-      ]],
-      {
-        c(1, {
-          t 'bmatrix',
-          t 'pmatrix',
-          t 'Bmatrix',
-          t 'vmatrix',
-          t 'Vmatrix',
-          t 'matrix',
-        }),
-        d(2, matrix_generator, {}),
-        rep(1),
-      }
-    )
-  ),
-
-  s(
-    { trig = ';sel', snippetType = 'autosnippet', wordTrig = false },
-    fmt(
-      [[
-      \begin{{cases}}
+      \begin{{bmatrix}}
         {}
-      \end{{cases}}
+      \end{{bmatrix}}
       ]],
       {
         i(1),
@@ -190,16 +167,94 @@ return {
   ),
 
   s(
-    { trig = ';tkz', snippetType = 'autosnippet', wordTrig = false },
+    { trig = ';sel', snippetType = 'autosnippet', wordTrig = false },
     fmt(
       [[
-      \begin{{center}}
-      \begin{{tikzpicture}}
-      {}
-      \end{{tikzpicture}}
-      \end{{center}}
+      \left\{{
+      \begin{{aligned}}
+        {}
+      \end{{aligned}}
+      \right.
       ]],
-      { i(1) }
+      {
+        i(1),
+      }
+    )
+  ),
+
+  s(
+    { trig = ';fig', snippetType = 'autosnippet', wordTrig = false },
+    fmt(
+      [[
+        \begin{{figure}}[{}]
+          \centering
+          {}
+          \caption{{{}}}
+          \label{{{}}}
+        \end{{figure}}
+      ]],
+      {
+        i(1, 'H'),
+        i(2),
+        i(3),
+        i(4),
+      }
+    )
+  ),
+
+  s(
+    { trig = ';minip', snippetType = 'autosnippet', wordTrig = false },
+    fmt(
+      [[
+        \begin{{minipage}}{{{}\textwidth}}
+          {}
+        \end{{minipage}}
+      ]],
+      {
+        i(1, '0.5'),
+        i(2),
+      }
+    )
+  ),
+
+  s(
+    { trig = ';img', snippetType = 'autosnippet', wordTrig = false },
+    fmt(
+      [[
+          \centering
+          \includegraphics[width={}\linewidth]{{{}}}
+          \caption{{{}}}
+          \label{{fig:{}}}
+      ]],
+      {
+        i(1),
+        i(2),
+        i(3),
+        i(4),
+      }
+    )
+  ),
+
+  s(
+    { trig = ';tikz', snippetType = 'autosnippet', wordTrig = false },
+    fmt(
+      [[
+        {{\large {}}}
+
+        \tikzsetnextfilename{{{}}}
+        \begin{{tikzpicture}}
+          {}
+        \end{{tikzpicture}}
+        \caption{{{}}}
+        \label{{tkz:{}}}
+      ]],
+      {
+        i(1, 'titulo'),
+        i(2, 'nombre archivo'),
+        i(3),
+        i(4, 'descripción'),
+        i(5),
+      }
     )
   ),
 
@@ -207,13 +262,91 @@ return {
     { trig = ';automata', snippetType = 'autosnippet', wordTrig = false },
     fmt(
       [[
-      \begin{{center}}
-      \begin{{tikzpicture}}[automata]
-      {}
-      \end{{tikzpicture}}
-      \end{{center}}
+        {{\large {}}}
+
+        \tikzsetnextfilename{{{}}}
+        \begin{{tikzpicture}}[automata]
+          {}
+        \end{{tikzpicture}}
+        \caption{{{}}}
+        \label{{aut:{}}}
       ]],
-      { i(1) }
+      {
+        i(1, 'titulo'),
+        i(2, 'nombre archivo'),
+        i(3),
+        i(4, 'descripción'),
+        i(5),
+      }
+    )
+  ),
+
+  s(
+    { trig = ';3d', snippetType = 'autosnippet', wordTrig = false },
+    fmt(
+      [[
+      {{\large {}}}
+
+      \tikzsetnextfilename{{{}}}
+      \begin{{tikzpicture}}
+        \begin{{axis}}[
+          width={}\textwidth,
+          clip=false,
+          xlabel={{$x$}}, ylabel={{$y$}}, zlabel={{$f(x,y)$}},
+          view={{110}}{{20}},
+          axis lines=center,
+          axis on top=true,
+        ]
+          {}
+        \end{{axis}}
+      \end{{tikzpicture}}
+      \caption{{{}}}
+      \label{{grf:{}}}
+      ]],
+      {
+        i(1, 'título'),
+        i(2, 'nombre archivo'),
+        i(3),
+        i(4),
+        i(5, 'descripción'),
+        i(6),
+      }
+    )
+  ),
+
+  s(
+    { trig = ';2d', snippetType = 'autosnippet', wordTrig = false },
+    fmt(
+      [[
+        {{\large {}}}
+
+        \tikzsetnextfilename{{{}}}
+        \begin{{tikzpicture}}
+          \begin{{axis}}[
+            width={}\textwidth,
+            clip=false,
+            xlabel={{$x$}}, ylabel={{$y$}},
+            axis lines=center,
+            axis on top=true,
+          ]
+            \addplot [{}, thick, name path={}, domain={}:{}] {{{}}};
+          \end{{axis}}
+        \end{{tikzpicture}}
+        \caption{{{}}}
+        \label{{grf:{}}}
+      ]],
+      {
+        i(1, 'título'),
+        i(2, 'nombre archivo'),
+        i(3),
+        i(4, 'black'),
+        i(5),
+        i(6),
+        i(7),
+        i(8),
+        i(9, 'descripción'),
+        i(10),
+      }
     )
   ),
 
@@ -223,13 +356,12 @@ return {
     { trig = ';int', snippetType = 'autosnippet', wordTrig = false },
     fmt(
       [[
-    \int_{{{}}}^{{{}}} {} \,d{}
+    \int_{{{}}}^{{{}}} {} \,d
     ]],
       {
         i(1),
         i(2),
         i(3),
-        i(4),
       }
     )
   ),
@@ -238,13 +370,11 @@ return {
     { trig = ';iint', snippetType = 'autosnippet', wordTrig = false },
     fmt(
       [[
-      \iint_{{{}}} {} \,d{} \,d{}
+      \iint_{{{}}} {} \,d
       ]],
       {
         i(1),
         i(2),
-        i(3),
-        i(4),
       }
     )
   ),
@@ -253,16 +383,59 @@ return {
     { trig = ';iiint', snippetType = 'autosnippet', wordTrig = false },
     fmt(
       [[
-      \iiint_{{{}}} {} \,d{} \,d{} \,d{}
+      \iiint_{{{}}} {} \,d
       ]],
+      {
+        i(1),
+        i(2),
+      }
+    )
+  ),
+
+  s(
+    { trig = ';dint', snippetType = 'autosnippet', wordTrig = false },
+    fmt(
+      [[
+    \int_{{{}}}^{{{}}} \int_{{{}}}^{{{}}} {} \,d{}\,d
+    ]],
       {
         i(1),
         i(2),
         i(3),
         i(4),
         i(5),
+        i(6),
       }
     )
+  ),
+
+  s(
+    { trig = ';tint', snippetType = 'autosnippet', wordTrig = false },
+    fmt(
+      [[
+    \int_{{{}}}^{{{}}} \int_{{{}}}^{{{}}} \int_{{{}}}^{{{}}} {} \,d{}\,d{}\,d
+    ]],
+      {
+        i(1),
+        i(2),
+        i(3),
+        i(4),
+        i(5),
+        i(6),
+        i(7),
+        i(8),
+        i(9),
+      }
+    )
+  ),
+
+  s(
+    { trig = ';eval', snippetType = 'autosnippet', wordTrig = false },
+    fmt('\\Bigg[{}\\Bigg]_{{{}}}^{{{}}}', {
+      i(1),
+      i(2),
+      i(3),
+    })
   ),
 
   s(
@@ -321,7 +494,7 @@ return {
   ),
 
   s(
-    { trig = ';log', snippetType = 'autosnippet' },
+    { trig = ';log', snippetType = 'autosnippet', wordTrig = false },
     fmt('\\log_{{{}}}{{{}}}', {
       i(1),
       i(2),
@@ -329,14 +502,14 @@ return {
   ),
 
   s(
-    { trig = ';ln', snippetType = 'autosnippet' },
+    { trig = ';ln', snippetType = 'autosnippet', wordTrig = false },
     fmt('\\ln{{{}}}', {
       i(1),
     })
   ),
 
   s(
-    { trig = ';rai', snippetType = 'autosnippet' },
+    { trig = ';raiz', snippetType = 'autosnippet', wordTrig = false },
     fmt('\\sqrt[{}]{{{}}}', {
       i(1),
       i(2),
@@ -344,7 +517,7 @@ return {
   ),
 
   s(
-    { trig = ';lim', snippetType = 'autosnippet' },
+    { trig = ';lim', snippetType = 'autosnippet', wordTrig = false },
     fmt('\\lim_{{{} \\to {}}}{}', {
       i(1, 'x'),
       c(2, { fmt('{}', { i(1) }), t '\\infty', t '-\\infty' }),
@@ -353,12 +526,28 @@ return {
   ),
 
   s(
-    { trig = ';ilim', snippetType = 'autosnippet' },
+    { trig = ';ilim', snippetType = 'autosnippet', wordTrig = false },
     fmt('\\displaystyle \\lim_{{{} \\to {}}}{}', {
       i(1, 'x'),
       c(2, { fmt('{}', { i(1) }), t '\\infty', t '-\\infty' }),
       i(3, ''),
     })
+  ),
+
+  s(
+    { trig = ';trozo', snippetType = 'autosnippet', wordTrig = false },
+    fmt(
+      [[
+      {}=\begin{{cases}}
+        {}&{}
+      \end{{cases}}
+      ]],
+      {
+        i(1),
+        i(2),
+        i(3),
+      }
+    )
   ),
 
   -- NOTE: SECTIONS
@@ -388,9 +577,9 @@ return {
 
   s({ trig = ';iff', snippetType = 'autosnippet', wordTrig = false }, { t ' \\iff ' }),
 
-  s({ trig = ';sub', snippetType = 'autosnippet', wordTrig = false }, { t ' \\subset ' }),
+  s({ trig = ';subc', snippetType = 'autosnippet', wordTrig = false }, { t ' \\subset ' }),
 
-  s({ trig = ';sup', snippetType = 'autosnippet', wordTrig = false }, { t ' \\supset ' }),
+  s({ trig = ';supc', snippetType = 'autosnippet', wordTrig = false }, { t ' \\supset ' }),
 
   s({ trig = ';esub', snippetType = 'autosnippet', wordTrig = false }, { t ' \\subseteq ' }),
 
@@ -410,15 +599,17 @@ return {
 
   s({ trig = ';equiv', snippetType = 'autosnippet', wordTrig = false }, { t ' \\equiv ' }),
 
-  s({ trig = ';and', snippetType = 'autosnippet', wordTrig = false }, { t ' \\land ' }),
+  s({ trig = ';land', snippetType = 'autosnippet', wordTrig = false }, { t ' \\land ' }),
 
-  s({ trig = ';or', snippetType = 'autosnippet', wordTrig = false }, { t ' \\lor ' }),
+  s({ trig = ';lor', snippetType = 'autosnippet', wordTrig = false }, { t ' \\lor ' }),
 
   s({ trig = ';xor', snippetType = 'autosnippet', wordTrig = false }, { t ' \\oplus ' }),
 
   s({ trig = ';to', snippetType = 'autosnippet', wordTrig = false }, { t ' \\to ' }),
 
   s({ trig = ';mid', snippetType = 'autosnippet', wordTrig = false }, { t ' \\mid ' }),
+
+  s({ trig = ';talq', snippetType = 'autosnippet', wordTrig = false }, { t ' \\;/\\; ' }),
 
   s({ trig = ';move', snippetType = 'autosnippet', wordTrig = false }, { t ' \\mapsto ' }),
 
@@ -431,7 +622,7 @@ return {
   -- NOTE: AUTOMATAS
 
   s(
-    { trig = ';nodo', snippetType = 'autosnippet' },
+    { trig = ';anodo', snippetType = 'autosnippet', wordTrig = false },
     fmt('\\node[{}, {}, {}, yshift={}cm, xshift={}cm] ({}) {{${}$}};', {
       i(1, 'state'),
       i(2, 'initial'),
@@ -444,7 +635,7 @@ return {
   ),
 
   s(
-    { trig = ';arista', snippetType = 'autosnippet' },
+    { trig = ';aarista', snippetType = 'autosnippet', wordTrig = false },
     fmt('({}) edge[{}, {}] node{{{}}} ({})', {
       i(1, 'nombre salida'),
       i(2, 'posicion texto'),
@@ -454,12 +645,12 @@ return {
     })
   ),
 
-  s({ trig = ';dibujar', snippetType = 'autosnippet', wordTrig = false }, fmt('\\draw   {}\n;', { i(1) })),
+  s({ trig = ';adibujar', snippetType = 'autosnippet', wordTrig = false }, fmt('\\draw   {}\n;', { i(1) })),
 
   -- NOTE: DIBUJOS TIKZ
 
   s(
-    { trig = ';flecha', snippetType = 'autosnippet' },
+    { trig = ';tkzflecha', snippetType = 'autosnippet', wordTrig = false },
     fmt('\\draw [->, draw={}, thick] ({}) edge[{}, {}] node{{{}}} ({});', {
       i(1, 'color'),
       i(2, 'nombre salida'),
@@ -471,7 +662,7 @@ return {
   ),
 
   s(
-    { trig = ';punto', snippetType = 'autosnippet' },
+    { trig = ';tkzpunto', snippetType = 'autosnippet', wordTrig = false },
     fmt('\\node[{}, yshift={}cm, xshift={}cm] ({}) {{${}$}};', {
       i(1, 'posicion'),
       i(2, '0'),
@@ -482,7 +673,7 @@ return {
   ),
 
   s(
-    { trig = ';grupo', snippetType = 'autosnippet' },
+    { trig = ';tkzgrupo', snippetType = 'autosnippet', wordTrig = false },
     fmt('\\node[fit={}] ({}) {{{}}};', {
       i(1, 'nodos'),
       i(2, 'nombre'),
@@ -491,7 +682,7 @@ return {
   ),
 
   s(
-    { trig = ';embrace', snippetType = 'autosnippet' },
+    { trig = ';tkzembrace', snippetType = 'autosnippet', wordTrig = false },
     fmt(
       [[
       \draw [decorate, decoration={{brace, amplitude=5pt}}] ({}.north east) -- ({}.south east);
@@ -506,6 +697,171 @@ return {
     )
   ),
 
+  -- NOTE: GRÁFICAS
+
+  s(
+    { trig = ';grfrestringir', snippetType = 'autosnippet', wordTrig = false },
+    fmt(
+      [[
+      domain={}:{}, y domain={}:{},
+      zmax={}, point meta max={},
+      samples={},
+      ]],
+      {
+        i(1),
+        i(2),
+        i(3),
+        i(4),
+        i(5),
+        rep(5),
+        i(6, '40'),
+      }
+    )
+  ),
+
+  s(
+    { trig = ';grflimitar', snippetType = 'autosnippet', wordTrig = false },
+    fmt(
+      [[
+      xmin={}, xmax={},
+      ymin={}, ymax={},
+      zmin={}, zmax={},
+      ]],
+      {
+        i(1),
+        i(2),
+        i(3),
+        i(4),
+        i(5),
+        i(6),
+      }
+    )
+  ),
+
+  s(
+    { trig = ';3funcion', snippetType = 'autosnippet', wordTrig = false },
+    fmt(
+      [[
+      \addplot3 [{}, shader=flat, colormap/{},]
+          {{{}}};
+      ]],
+      {
+        i(1, 'surf'),
+        i(2, 'viridis'),
+        i(3),
+      }
+    )
+  ),
+
+  s(
+    { trig = ';3punto', snippetType = 'autosnippet', wordTrig = false },
+    fmt(
+      [[
+      \addplot3 [only marks, mark=*, mark size=5pt, color={},]
+          coordinates {{({},{},{})}};
+      \node at (axis cs:{},{},{}) [anchor={}] {{$P({},{},{})$}};
+      ]],
+      {
+        i(1, 'red!70'),
+        i(2),
+        i(3),
+        i(4),
+        rep(2),
+        rep(3),
+        rep(4),
+        i(5, 'north'),
+        rep(2),
+        rep(3),
+        rep(4),
+      }
+    )
+  ),
+
+  s(
+    { trig = ';2curva', snippetType = 'autosnippet', wordTrig = false },
+    fmt(
+      [[
+      \addplot [{}, thick, name path={}, domain={}:{},] {{{}}};
+      ]],
+      {
+        i(1, 'black'),
+        i(2),
+        i(3),
+        i(4),
+        i(5),
+      }
+    )
+  ),
+
+  s(
+    { trig = ';2area', snippetType = 'autosnippet', wordTrig = false },
+    fmt(
+      [[
+      \addplot [{}] fill between [of={} and {}, soft clip={{{}}}];
+      ]],
+      {
+        i(1, 'blue!30'),
+        i(2, 'A'),
+        i(3, 'B'),
+        i(4),
+      }
+    )
+  ),
+
+  s(
+    { trig = ';2punto', snippetType = 'autosnippet', wordTrig = false },
+    fmt(
+      [[
+      \addplot [only marks, mark=*, mark size=5pt, color={},]
+          coordinates {{({},{})}};
+      \node at (axis cs:{},{}) [anchor={}] {{$P({},{})$}};
+      ]],
+      {
+        i(1, 'blue!30'),
+        i(2),
+        i(3),
+        rep(2),
+        rep(3),
+        i(4, 'south'),
+        rep(2),
+        rep(3),
+      }
+    )
+  ),
+
+  s(
+    { trig = ';2vector', snippetType = 'autosnippet', wordTrig = false },
+    fmt(
+      [[
+      \addplot [-stealth, very thick, {}] coordinates {{({},{}) ({},{})}};
+      ]],
+      {
+        i(1, 'red!70'),
+        i(2),
+        i(3),
+        i(4),
+        i(5),
+      }
+    )
+  ),
+
+  s(
+    { trig = ';2label', snippetType = 'autosnippet', wordTrig = false },
+    fmt(
+      [[
+      \node at (axis cs:{},{}) [{}] {{{}}};
+      ]],
+      {
+        i(1),
+        i(2),
+        i(3),
+        i(4),
+      }
+    )
+  ),
+
+  s({ trig = ';domain', snippetType = 'autosnippet', wordTrig = false }, fmt('domain={}:', { i(1) })),
+
   -- NOTE: MISCELLANEOUS
 
   s({ trig = ';alfa', snippetType = 'autosnippet', wordTrig = false }, { t '\\alpha' }),
@@ -513,7 +869,7 @@ return {
   s({ trig = ';gama', snippetType = 'autosnippet', wordTrig = false }, { t '\\gamma' }),
   s({ trig = ';delta', snippetType = 'autosnippet', wordTrig = false }, { t '\\delta' }),
   s({ trig = ';epsi', snippetType = 'autosnippet', wordTrig = false }, { t '\\varepsilon' }),
-  s({ trig = ';theta', snippetType = 'autosnippet', wordTrig = false }, { t '\\theta' }),
+  s({ trig = ';teta', snippetType = 'autosnippet', wordTrig = false }, { t '\\theta' }),
   s({ trig = ';kappa', snippetType = 'autosnippet', wordTrig = false }, { t '\\kappa' }),
   s({ trig = ';lamda', snippetType = 'autosnippet', wordTrig = false }, { t '\\lambda' }),
   s({ trig = ';mu', snippetType = 'autosnippet', wordTrig = false }, { t '\\mu' }),
@@ -521,7 +877,8 @@ return {
   s({ trig = ';rho', snippetType = 'autosnippet', wordTrig = false }, { t '\\rho' }),
   s({ trig = ';sigma', snippetType = 'autosnippet', wordTrig = false }, { t '\\sigma' }),
   s({ trig = ';tau', snippetType = 'autosnippet', wordTrig = false }, { t '\\tau' }),
-  s({ trig = ';fi', snippetType = 'autosnippet', wordTrig = false }, { t '\\varphi' }),
+  s({ trig = ';phi', snippetType = 'autosnippet', wordTrig = false }, { t '\\phi' }),
+  s({ trig = ';varphi', snippetType = 'autosnippet', wordTrig = false }, { t '\\varphi' }),
   s({ trig = ';psi', snippetType = 'autosnippet', wordTrig = false }, { t '\\psi' }),
   s({ trig = ';omega', snippetType = 'autosnippet', wordTrig = false }, { t '\\omega' }),
   s({ trig = ';vardel', snippetType = 'autosnippet', wordTrig = false }, { t '\\partial' }),
@@ -529,11 +886,11 @@ return {
 
   s({ trig = ':gama', snippetType = 'autosnippet', wordTrig = false }, { t '\\Gamma' }),
   s({ trig = ':delta', snippetType = 'autosnippet', wordTrig = false }, { t '\\Delta' }),
-  s({ trig = ':theta', snippetType = 'autosnippet', wordTrig = false }, { t '\\Theta' }),
+  s({ trig = ':teta', snippetType = 'autosnippet', wordTrig = false }, { t '\\Theta' }),
   s({ trig = ':lamda', snippetType = 'autosnippet', wordTrig = false }, { t '\\Lambda' }),
   s({ trig = ':pi', snippetType = 'autosnippet', wordTrig = false }, { t '\\Pi' }),
   s({ trig = ':sigma', snippetType = 'autosnippet', wordTrig = false }, { t '\\Sigma' }),
-  s({ trig = ':fi', snippetType = 'autosnippet', wordTrig = false }, { t '\\Phi' }),
+  s({ trig = ':phi', snippetType = 'autosnippet', wordTrig = false }, { t '\\Phi' }),
   s({ trig = ':psi', snippetType = 'autosnippet', wordTrig = false }, { t '\\Psi' }),
   s({ trig = ':omega', snippetType = 'autosnippet', wordTrig = false }, { t '\\Omega' }),
 
@@ -547,7 +904,11 @@ return {
 
   s({ trig = ';inft', snippetType = 'autosnippet', wordTrig = false }, { t '\\infty' }),
 
-  s({ trig = ';dot', snippetType = 'autosnippet', wordTrig = false }, { t '\\dots ' }),
+  s({ trig = ';dots', snippetType = 'autosnippet', wordTrig = false }, { t '\\dots ' }),
+
+  s({ trig = ';vdots', snippetType = 'autosnippet', wordTrig = false }, { t '\\vdots ' }),
+
+  s({ trig = ';ddots', snippetType = 'autosnippet', wordTrig = false }, { t '\\ddots ' }),
 
   s({ trig = ';*', snippetType = 'autosnippet', wordTrig = false }, { t '\\cdot ' }),
 
@@ -556,6 +917,8 @@ return {
   s({ trig = ';por', snippetType = 'autosnippet', wordTrig = false }, { t '\\times ' }),
 
   s({ trig = ';circ', snippetType = 'autosnippet', wordTrig = false }, { t '\\circledcirc ' }),
+
+  s({ trig = ';comp', snippetType = 'autosnippet', wordTrig = false }, { t '\\circ ' }),
 
   s({ trig = ';prima', snippetType = 'autosnippet', wordTrig = false }, t '^{\\prime}'),
 
@@ -667,6 +1030,7 @@ return {
         \usepackage{{csquotes}}
 
         % Interlineado 1.5
+        \usepackage{{mathpazo}}
         \usepackage{{setspace}}
         \onehalfspacing
 
@@ -687,7 +1051,9 @@ return {
         \usepackage{{pgfplots}}
         \usepackage{{tikz, color}}
         \usepackage{{tikz-3dplot}}
-        \pgfplotsset{{width=15cm, compat=1.12}}
+        \pgfplotsset{{width=15cm, compat=1.18}}
+        \usepgfplotslibrary{{external}}
+        \tikzexternalize[prefix=figs/]
 
         % Para automatas
         \usetikzlibrary{{automata, positioning, arrows, calc}}
@@ -822,29 +1188,6 @@ return {
         }),
         i(3),
         rep(1),
-      }
-    )
-  ),
-  s(
-    'figure',
-    fmt(
-      [[
-        \begin{{figure}}{}
-          \centering
-          \includegraphics[width={}\linewidth]{{{}}}
-          \caption{{{}}}
-          \label{{fig:{}}}
-        \end{{figure}}
-      ]],
-      {
-        c(1, {
-          fmt('[{}]', { i(1, 'H') }),
-          t '',
-        }),
-        i(2),
-        i(3),
-        i(4),
-        i(5),
       }
     )
   ),
