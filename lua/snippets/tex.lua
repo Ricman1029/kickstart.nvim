@@ -221,16 +221,11 @@ return {
     { trig = ';img', snippetType = 'autosnippet', wordTrig = false },
     fmt(
       [[
-          \centering
           \includegraphics[width={}\linewidth]{{{}}}
-          \caption{{{}}}
-          \label{{fig:{}}}
       ]],
       {
         i(1),
         i(2),
-        i(3),
-        i(4),
       }
     )
   ),
@@ -558,7 +553,7 @@ return {
 
   s({ trig = ';sss', snippetType = 'autosnippet', wordTrig = false }, fmt('\\subsubsection{{{}}}', { i(1) })),
 
-  s({ trig = ';spar', snippetType = 'autosnippet', wordTrig = false }, fmt('\\paragraph{{{}}}\\mbox{{}}\\\\', { i(1) })),
+  s({ trig = ';spar', snippetType = 'autosnippet', wordTrig = false }, fmt('\\paragraph{{{}}}\\mbox{{}}', { i(1) })),
   s({ trig = ':sec', snippetType = 'autosnippet', wordTrig = false }, fmt('\\section*{{{}}}', { i(1) })),
 
   s({ trig = ':ssc', snippetType = 'autosnippet', wordTrig = false }, fmt('\\subsection*{{{}}}', { i(1) })),
@@ -1018,6 +1013,8 @@ return {
   ),
 
   s({ trig = ';box', snippetType = 'autosnippet', wordTrig = false }, fmt([[\boxed{{{}}} ]], { i(1) })),
+
+  s({ trig = ';link', snippetType = 'autosnippet', wordTrig = false }, fmt([[\href{{{}}}{{{}}} ]], { i(1), i(2) })),
 
   -- NOTE: NORMAL SNIPPETS
   s(
