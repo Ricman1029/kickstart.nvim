@@ -17,17 +17,26 @@ return {
     'neovim/nvim-lspconfig',
     -- Opcional: nos aseguramos de que se configure después de mason.
     dependencies = { 'williamboman/mason.nvim' },
-    config = function()
-      -- Obtenemos la configuración base de lspconfig
-      local lspconfig = require 'lspconfig'
-
-      -- Llamamos directamente a la función de setup para 'hls'.
-      -- Neovim buscará 'haskell-language-server-wrapper' en tu PATH,
-      -- que es exactamente lo que `ghcup` instala y configura.
-      lspconfig.hls.setup {
-        -- No necesitamos poner nada especial aquí por ahora,
-        -- la configuración por defecto que viene con nvim-lspconfig es suficiente.
-      }
-    end,
+    -- Configuracion anterior (deprecated)
+    -- config = function()
+    --   -- Obtenemos la configuración base de lspconfig
+    --   local lspconfig = require 'lspconfig'
+    --
+    --   -- Llamamos directamente a la función de setup para 'hls'.
+    --   -- Neovim buscará 'haskell-language-server-wrapper' en tu PATH,
+    --   -- que es exactamente lo que `ghcup` instala y configura.
+    --   lspconfig.hls.setup {
+    --     -- No necesitamos poner nada especial aquí por ahora,
+    --     -- la configuración por defecto que viene con nvim-lspconfig es suficiente.
+    --   }
+    --
+    --   Configuracion nueva (Gemini)
+    opts = {
+      -- La tabla servers le dice a lspconfig que servidores debe activar
+      servers = {
+        -- Le decimos que configure hls con la configuracion por defeto.
+        hls = {},
+      },
+    },
   },
 }
